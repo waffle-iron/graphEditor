@@ -12,12 +12,13 @@ lazy val client = project.in(file("./src/main/scala/org/graphEditor/client"))
     resolvers += Resolver.sonatypeRepo("snapshots"),
     resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases",
     resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-      scalaVersion := "2.11.7",
-      libraryDependencies ++= Seq(
-          "org.scala-js" %%% "scalajs-dom" % "0.9.0"
-        ),
+    scalaVersion := "2.11.7",
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % "0.9.0"
+    ),
     libraryDependencies += "org.scalactic" %% "scalactic" % "2.2.6",
-      libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
+    libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test",
+    libraryDependencies += "com.lihaoyi" %%% "scalarx" % "0.3.1"
   )
 
 lazy val storage = project.in(file("./src/main/scala/org/graphEditor/storage"))
