@@ -2,7 +2,6 @@ package events.sources.window
 
 import events.IEvent
 import events.sources.ISource
-import events.sources.mouse.Position
 import org.scalajs.dom
 import org.scalajs.dom.raw.MouseEvent
 import rx.Var
