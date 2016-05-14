@@ -7,4 +7,5 @@ import events.sources.ISource
   */
 trait IEvent {
   val source: ISource
+  val kind: IEventKind
 }

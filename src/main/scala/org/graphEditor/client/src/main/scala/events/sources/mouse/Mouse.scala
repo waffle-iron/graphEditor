@@ -1,6 +1,6 @@
 package events.sources.mouse
 
-import events.IEvent
+import events._
 import events.sources.ISource
 import rx._
 import org.scalajs.dom
@@ -8,21 +8,21 @@ import org.scalajs.dom.raw._
 
 case class Position(top: Double, left: Double)
 
-sealed class Kind
+sealed class MouseEvent extends IEventKind
 
-object Move extends Kind
-object Click extends Kind
-object ButtonUp extends Kind
-object ButtonDown extends Kind
+object Move extends MouseEvent
+object Click extends MouseEvent
+object ButtonUp extends MouseEvent
+object ButtonDown extends MouseEvent
 
-case class Event(source: ISource, position: Position, kind: Kind) extends IEvent
+case class Event(source: ISource, position: Position, kind: MouseEvent) extends IEvent
 
 object Mouse extends  ISource {
   lazy val source = {
     val event = Var[Event](null)
     dom.document.addEventListener(
       "mousemove",
-      (nativeEvent: MouseEvent) => {
+      (nativeEvent: dom.MouseEvent) => {
         event() = new Event(
           this,
           Position(nativeEvent.pageX, nativeEvent.pageY),
@@ -32,7 +32,7 @@ object Mouse extends  ISource {
 
       dom.document.addEventListener(
         "mouseup",
-        (nativeEvent: MouseEvent) => {
+        (nativeEvent: dom.MouseEvent) => {
           event() = new Event(
             this,
             Position(nativeEvent.pageX, nativeEvent.pageY),
@@ -42,7 +42,7 @@ object Mouse extends  ISource {
 
         dom.document.addEventListener(
           "mousedown",
-          (nativeEvent: MouseEvent) => {
+          (nativeEvent: dom.MouseEvent) => {
             event() = new Event(
               this,
               Position(nativeEvent.pageX, nativeEvent.pageY),
@@ -52,7 +52,7 @@ object Mouse extends  ISource {
 
           dom.document.addEventListener(
             "click",
-            (nativeEvent: MouseEvent) => {
+            (nativeEvent: dom.MouseEvent) => {
               event() = new Event(
                 this,
                 Position(nativeEvent.pageX, nativeEvent.pageY),

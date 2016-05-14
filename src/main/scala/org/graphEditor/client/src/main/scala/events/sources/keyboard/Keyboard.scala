@@ -1,35 +1,43 @@
 package events.sources.keyboard
 
-import events.IEvent
+import java.awt.event.KeyEvent
+
+import events._
 import events.sources.ISource
 import rx._
 import org.scalajs.dom
 import org.scalajs.dom.raw._
 
-sealed class Kind
+sealed class KeyboardEvent extends IEventKind
 
-object KeyPress extends Kind
-object KeyDown extends Kind
-object KeyUp extends Kind
+object KeyPress extends KeyboardEvent
+object KeyDown extends KeyboardEvent
+object KeyUp extends KeyboardEvent
 
-case class Event(source: ISource, keyCode: Int, kind: Kind) extends IEvent
+case class Event(source: ISource, keyCode: Int, kind: KeyboardEvent)
+  extends IEvent
 
-object Keyboard extends ISource {
+
+object Keyboard
+  extends ISource
+  with IProducer
+{
+  val producing = Set(KeyEvent)
   lazy val source = {
     val event = Var[Event](null)
     dom.document.addEventListener(
       "keypress",
-      (nativeEvent: KeyboardEvent) => {
+      (nativeEvent: dom.KeyboardEvent) => {
         event() = new Event(this, nativeEvent.keyCode, KeyPress)
       }, useCapture = false)
     dom.document.addEventListener(
       "keydown",
-      (nativeEvent: KeyboardEvent) => {
+      (nativeEvent: dom.KeyboardEvent) => {
         event() = new Event(this, nativeEvent.keyCode, KeyDown)
       }, useCapture = false)
     dom.document.addEventListener(
       "keyup",
-      (nativeEvent: KeyboardEvent) => {
+      (nativeEvent: dom.KeyboardEvent) => {
         event() = new Event(this, nativeEvent.keyCode, KeyUp)
       }, useCapture = false)
     event
