@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/PauloHMattos/GraphEditor.png?label=ready&title=Ready)](https://waffle.io/PauloHMattos/GraphEditor)
 [![Stories in Ready](https://badge.waffle.io/codingcrystal/graphEditor.png?label=ready&title=Ready)](https://waffle.io/codingcrystal/graphEditor)
 # Graph Editor: ScalaJS Edition
 
